@@ -32,7 +32,17 @@ public class AddEventServlet extends HttpServlet {
         boolean isInserted = eventDAO.addEvent(eventName, description, eventDate, location, category, totalSeats, availableSeats);
 
         // Display message based on result
-        response.getWriter().println(isInserted ? "<h3>Event added successfully!</h3>" : "<h3>Failed to add the event.</h3>");
+        // Display JavaScript alert and redirect
+        response.getWriter().println("<script type='text/javascript'>");
+        if (isInserted) {
+            response.getWriter().println("alert('Event added successfully!');");
+            response.getWriter().println("window.location.href='index.html';");
+        } else {
+            response.getWriter().println("alert('Failed to add the event. Please try again.');");
+            response.getWriter().println("window.history.back();");
+        }
+        response.getWriter().println("</script>");
+        
     }
 
     @Override
